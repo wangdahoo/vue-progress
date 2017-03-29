@@ -1,9 +1,6 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-
+  <div>
     <div id="container"></div>
-
   </div>
 </template>
 
@@ -11,14 +8,6 @@
 import ProgressBar from 'progressbar.js'
 
 export default {
-  name: 'hello',
-
-  data () {
-    return {
-      msg: 'Progressbar.js as Vue Component'
-    }
-  },
-
   mounted () {
     let line = new ProgressBar.Line('#container', {
       easing: 'easeInOut'
