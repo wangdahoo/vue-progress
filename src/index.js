@@ -1,10 +1,8 @@
-import VLine from './VLine'
-import VCircle from './VCircle'
+import Progress from './Progress'
 
 let VProgress = {
   install: function (Vue, options) {
-    Vue.component('v-line', VLine)
-    Vue.component('v-circle', VCircle)
+    Vue.component('v-progress', Progress)
   }
 }
 

@@ -1,8 +1,9 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <v-line></v-line>
-    <v-circle></v-circle>
+    <v-progress type="line" class="test"></v-progress>
+    <v-progress type="heart" class="test"></v-progress>
+    <v-progress type="circle" class="test"></v-progress>
   </div>
 </template>
 
@@ -15,3 +16,11 @@ export default {
   }
 }
 </script>
+<style>
+  .test {
+    display: inline-block;
+    margin: 20px;
+    width: 200px;
+    height: 200px;
+  }
+</style>
