@@ -17,22 +17,20 @@ export default {
     type: {
       type: String,
       default: ''
+    },
+
+    options: {
+      type: Object
     }
   },
   mounted () {
     let progress = Object
-    if (this.type === 'circle') {
-      progress = new ProgressBar.Circle('#container', {
-        strokeWidth: 1
-      })
+    if (this.type === 'line') {
+      progress = new ProgressBar.Line('#container', this.options)
+    } else if (this.type === 'circle') {
+      progress = new ProgressBar.Circle('#heart-path', this.options)
     } else if (this.type === 'heart') {
-      progress = new ProgressBar.Path('#heart-path', {
-        strokeWidth: 1
-      })
-    } else if (this.type === 'line') {
-      progress = new ProgressBar.Line('#container', {
-        strokeWidth: 1
-      })
+      progress = new ProgressBar.Path('#container', this.options)
     }
     progress.animate(1)
   }
