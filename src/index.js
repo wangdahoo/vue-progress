@@ -2,7 +2,7 @@ import Progress from './Progress'
 
 let VProgress = {
   install: function (Vue, options) {
-    Vue.component('v-progress', Progress)
+    Vue.component('progress-bar', Progress)
   }
 }
 

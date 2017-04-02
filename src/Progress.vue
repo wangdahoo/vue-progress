@@ -1,59 +1,102 @@
 <template>
   <div>
-    <div id="container">
-      <svg v-if="type === 'heart'" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 100 100">
-          <path fill-opacity="0" stroke-width="1" stroke="#bbb" d="M81.495,13.923c-11.368-5.261-26.234-0.311-31.489,11.032C44.74,13.612,29.879,8.657,18.511,13.923  C6.402,19.539,0.613,33.883,10.175,50.804c6.792,12.04,18.826,21.111,39.831,37.379c20.993-16.268,33.033-25.344,39.819-37.379  C99.387,33.883,93.598,19.539,81.495,13.923z"/>
-          <path id="heart-path" fill-opacity="0" stroke-width="3" stroke="#ED6A5A" d="M81.495,13.923c-11.368-5.261-26.234-0.311-31.489,11.032C44.74,13.612,29.879,8.657,18.511,13.923  C6.402,19.539,0.613,33.883,10.175,50.804c6.792,12.04,18.826,21.111,39.831,37.379c20.993-16.268,33.033-25.344,39.819-37.379  C99.387,33.883,93.598,19.539,81.495,13.923z"/>
-      </svg>
-    </div>
+    <slot name='path'></slot>
   </div>
 </template>
 
 <script>
-import ProgressBar from 'progressbar.js'
+import { LINE, CIRCLE, PATH } from './constants'
+import { Circle, Line, Path } from 'progressbar.js'
 
 export default {
   props: {
     type: {
       type: String,
-      default: ''
+      default: LINE,
+      validator: function (val) {
+        return val === LINE || val === CIRCLE || val === PATH
+      }
     },
 
     options: {
-      type: Object
+      type: Object,
+      default: function () {
+        return {}
+      }
     }
   },
-  mounted () {
-    let progress = Object
-    if (this.type === 'line') {
-      progress = new ProgressBar.Line('#container', this.options)
-    } else if (this.type === 'circle') {
-      progress = new ProgressBar.Circle('#heart-path', this.options)
-    } else if (this.type === 'heart') {
-      progress = new ProgressBar.Path('#container', this.options)
+
+  data () {
+    return {
+      progress: undefined
     }
-    progress.animate(1)
+  },
+
+  mounted () {
+    this.init()
+  },
+
+  destroyed () {
+    if (this.progress) this.progress.destroy()
+  },
+
+  methods: {
+    init () {
+      switch (this.type) {
+        case CIRCLE:
+          this.progress = new Circle(this.$el, this.options)
+          break
+        case PATH:
+          this.progress = new Path(this.$el.querySelector('svg'), this.options)
+          break
+        default:
+          this.progress = new Line(this.$el, this.options)
+      }
+    },
+
+    // Reference to SVG element where progress bar is drawn.
+    svg () {
+      return this.progress.svg
+    },
+
+    // Reference to SVG path which presents the actual progress bar.
+    path () {
+      return this.progress.path
+    },
+
+    // Reference to SVG path which presents the trail of the progress bar. Returns null if trail is not defined.
+    trail () {
+      return this.progress.trail
+    },
+
+    // Reference to p element which presents the text label for progress bar. Returns null if text is not defined.
+    text () {
+      return this.progress.text
+    },
+
+    animate (progress, options, cb) {
+      this.progress.animate(progress, options, cb)
+    },
+
+    // Sets progress instantly without animation. Clears all animations for path.
+    set (progress) {
+      this.progress.set(progress)
+    },
+
+    // Stops animation to its current position.
+    stop () {
+      this.progress.stop()
+    },
+
+    // Returns current shown progress from 0 to 1. This value changes when animation is running.
+    value () {
+      return this.progress.value()
+    },
+
+    // Sets text to given a string. If you need to dynamically modify the text element, see .text attribute.
+    setText (text) {
+      this.progress.setText(text)
+    }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
