@@ -3,20 +3,21 @@
   "version": "0.1.0",
   "description": "Progressbar.js as Vue Component",
   "author": "wangdahoo <157195705@qq.com>",
-  "private": true,
+  "main": "dist/vue-progress.min.js",
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
-    "lint": "eslint --ext .js,.vue src test/unit/specs"
+    "lint": "eslint --ext .js,.vue src test/unit/specs",
+    "pack": "node build/pack.js"
   },
   "dependencies": {
-    "progressbar.js": "^1.0.1",
-    "vue": "^2.2.2",
-    "vue-router": "^2.2.0"
+    "progressbar.js": "^1.0.1"
   },
   "devDependencies": {
+    "vue": "^2.2.2",
+    "vue-router": "^2.2.0",
     "autoprefixer": "^6.7.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",

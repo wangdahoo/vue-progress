@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>vue-progress</title>
+    <script src="https://unpkg.qkcdn.com/vue@2.2.6/dist/vue.min.js"></script>
+    <script src="../dist/vue-progress.min.js"></script>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="text/x-template" id="tpl">
+      <progress-bar type="line" ref="line" :options="options"></progress-bar>
+    </script>
+
+    <script>
+      new Vue({
+        template: '#tpl',
+        data: {
+          options: {
+            color: '#007AFF',
+            strokeWidth: 0.5
+          }
+        },
+        mounted: function () {
+          this.$refs.line.animate(1.0)
+        }
+      }).$mount('#app')
+    </script>
+  </body>
+</html>
