@@ -1,27 +1,50 @@
 <template>
   <div class="hello">
-    <h1 class="center">{{ title }}</h1>
-    <h3 class="center">{{ subtitle }}</h3>
-    <!-- Basic Line -->
+    <h1 class="text-center">{{ title }}</h1>
+    <h3 class="text-center">{{ subtitle }}</h3>
+
     <div class="container">
+      <h2 class="text-left">line</h2>
+
+      <!-- Basic Line -->
       <card>
         <div slot="content">
-          <progress-bar class="line" ref="basicLine" type="line" :options="lineOptions"></progress-bar>
+          <progress-bar class="line" ref="basicLine" type="line" :options="lineBasicOptions"></progress-bar>
         </div>
         <div slot="footer">
           basic line
         </div>
       </card>
-    </div>
 
-    <!-- Color Animation -->
-    <div class="container">
+      <!-- Percent -->
+      <card>
+        <div slot="content">
+          <progress-bar class="line" ref="percentLine" type="line" :options="linePercentOptions"></progress-bar>
+        </div>
+        <div slot="footer">
+          percent
+        </div>
+      </card>
+
+      <!-- Color Animation -->
       <card>
         <div slot="content">
           <progress-bar class="line" ref="colorAnimationLine" type="line" :options="lineColorAnimationOptions"></progress-bar>
         </div>
         <div slot="footer">
           color animation
+        </div>
+      </card>
+
+      <h2 class="text-left">circle</h2>
+
+      <!-- Basic Circle -->
+      <card>
+        <div slot="content">
+          <progress-bar class="circle" ref="basicCircle" type="circle" :options="circleBasicOptions"></progress-bar>
+        </div>
+        <div slot="footer">
+          basic circle
         </div>
       </card>
     </div>
@@ -31,8 +54,7 @@
 <script>
 import Card from './Card'
 
-const ANIMATE_DURATION = 1400
-const ANIMATE_DELAY = 400
+import { ANIMATE_DURATION, ANIMATE_DELAY, OPTIONS } from '../constants'
 
 function loopAnimate (target) {
   target.animate(1.0, () => {
@@ -52,30 +74,10 @@ export default {
       title: 'progress bar.js',
       subtitle: 'As a Vue Component',
 
-      lineOptions: {
-        strokeWidth: 4,
-        easing: 'easeInOut',
-        duration: ANIMATE_DURATION,
-        color: '#FFEA82',
-        trailColor: '#eee',
-        trailWidth: 1,
-        svgStyle: { width: '100%', height: '100%' }
-      },
-
-      lineColorAnimationOptions: {
-        strokeWidth: 4,
-        easing: 'easeInOut',
-        duration: ANIMATE_DURATION,
-        color: '#FFEA82',
-        trailColor: '#eee',
-        trailWidth: 1,
-        svgStyle: {width: '100%', height: '100%'},
-        from: {color: '#FFEA82'},
-        to: {color: '#ED6A5A'},
-        step: (state, bar) => {
-          bar.path.setAttribute('stroke', state.color)
-        }
-      }
+      lineBasicOptions: OPTIONS.LINE_BASIC,
+      linePercentOptions: OPTIONS.LINE_PERCENT,
+      lineColorAnimationOptions: OPTIONS.LINE_COLOR_ANIMATION,
+      circleBasicOptions: OPTIONS.CIRCLE_BASIC
     }
   },
 
@@ -87,26 +89,38 @@ export default {
     init () {
       let basicLine = this.$refs.basicLine
       loopAnimate(basicLine)
+      let percentLine = this.$refs.percentLine
+      loopAnimate(percentLine)
       let colorAnimationLine = this.$refs.colorAnimationLine
       loopAnimate(colorAnimationLine)
+      let basicCircle = this.$refs.basicCircle
+      loopAnimate(basicCircle)
     }
   }
 }
 </script>
 
 <style scoped>
-h1, h3 {
-  font-family: Raleway, Helvetica, sans-serif;
-  text-align: center;
-}
-
-h1 {
-  color: #4A4949;
-  text-transform: uppercase;
+h1, h2 {
+  font-family: 'Raleway', Helvetica, sans-serif;
 }
 
 h3 {
-  color: #4fc08d;
+  font-family: 'Josefin Sans', Helvetica, sans-serif;
+  color: #c0c0c0;
+}
+
+h1, h2 {
+  color: #2c3e50;
+  text-transform: uppercase;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .container {
@@ -120,5 +134,14 @@ h3 {
   top: 96px;
   left: 50%;
   margin-left: -100px;
+}
+
+.circle {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  top: 30px;
+  left: 50%;
+  margin-left: -70px;
 }
 </style>
