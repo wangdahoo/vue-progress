@@ -65,10 +65,59 @@ const CIRCLE_BASIC = {
   svgStyle: null
 }
 
+const CIRCLE_BOUNCE_EASING = {
+  color: '#FFEA82',
+  trailColor: '#eee',
+  trailWidth: 1,
+  duration: ANIMATE_DURATION,
+  easing: 'bounce',
+  strokeWidth: 6,
+  from: {color: '#FFEA82', a:0},
+  to: {color: '#ED6A5A', a:1},
+  // Set default step function for all animate calls
+  step: function(state, circle) {
+    circle.path.setAttribute('stroke', state.color)
+  }
+}
+
+const CIRCLE_MULTIPLE_PROPERTIES = {
+  color: '#aaa',
+  // This has to be the same size as the maximum width to
+  // prevent clipping
+  strokeWidth: 4,
+  trailWidth: 1,
+  easing: 'easeInOut',
+  duration: ANIMATE_DURATION,
+  text: {
+    autoStyleContainer: false
+  },
+  from: { color: '#aaa', width: 1 },
+  to: { color: '#333', width: 4 },
+  // Set default step function for all animate calls
+  step: function(state, circle) {
+    circle.path.setAttribute('stroke', state.color)
+    circle.path.setAttribute('stroke-width', state.width)
+    var value = Math.round(circle.value() * 100)
+    if (value === 0) {
+      circle.setText('')
+    } else {
+      circle.setText(value)
+    }
+  }
+}
+
+const CUSTOM_HEART = {
+  easing: 'easeInOut',
+  duration: ANIMATE_DURATION
+}
+
 // example options
 export const OPTIONS = {
   LINE_BASIC,
   LINE_PERCENT,
   LINE_COLOR_ANIMATION,
-  CIRCLE_BASIC
+  CIRCLE_BASIC,
+  CIRCLE_BOUNCE_EASING,
+  CIRCLE_MULTIPLE_PROPERTIES,
+  CUSTOM_HEART
 }

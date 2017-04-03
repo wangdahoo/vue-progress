@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slot name='path'></slot>
+    <slot name='svg'></slot>
   </div>
 </template>
 
@@ -47,7 +47,9 @@ export default {
           this.progress = new Circle(this.$el, this.options)
           break
         case PATH:
-          this.progress = new Path(this.$el.querySelector('svg'), this.options)
+          let paths = this.$el.querySelectorAll('path')
+          if (paths.length === 0) throw new Error('[VueProgress Error] Path not found in slot svg.')
+          this.progress = new Path(paths[paths.length - 1], this.options)
           break
         default:
           this.progress = new Line(this.$el, this.options)
