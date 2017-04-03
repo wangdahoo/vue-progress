@@ -6,7 +6,11 @@
 
 <script>
 import { LINE, CIRCLE, PATH } from './constants'
+import { extend } from './utils'
 import { Circle, Line, Path } from 'progressbar.js'
+
+const RE_FLOAT = /^\d+(\.\d+)?$/
+const RE_INT = /^\+?[1-9][0-9]*$/
 
 export default {
   props: {
@@ -17,7 +21,45 @@ export default {
         return val === LINE || val === CIRCLE || val === PATH
       }
     },
-
+    color: {
+      type: String,
+      default: '#555'
+    },
+    strokeWidth: {
+      type: [Number, String],
+      default: 1.0,
+      validator: function (val) {
+        return RE_FLOAT.test(val)
+      }
+    },
+    trailColor: {
+      type: String,
+      default: '#eee'
+    },
+    trailWidth: {
+      type: [Number, String],
+      default: 0.5,
+      validator: function (val) {
+        return RE_FLOAT.test(val)
+      }
+    },
+    duration: {
+      type: [Number, String],
+      default: 800,
+      validator: function (val) {
+        return RE_INT.test(val)
+      }
+    },
+    easing: {
+      type: String,
+      default: 'linear'
+    },
+    svgStyle: Object,
+    text: Object,
+    fill: String,
+    from: Object,
+    to: Object,
+    step: Function,
     options: {
       type: Object,
       default: function () {
@@ -42,17 +84,35 @@ export default {
 
   methods: {
     init () {
+      let _options = {
+        color: this.color,
+        strokeWidth: parseFloat(this.strokeWidth),
+        trailColor: this.trailColor,
+        trailWidth: parseFloat(this.trailWidth),
+        duration: parseInt(this.duration),
+        easing: this.easing
+      }
+
+      if (this.svgStyle) _options.svgStyle = this.svgStyle
+      if (this.text) _options.text = this.text
+      if (this.fill) _options.fill = this.fill
+      if (this.from) _options.from = this.from
+      if (this.to) _options.to = this.to
+      if (this.step) _options.step = this.step
+
+      let options = extend(_options, this.options || {})
+
       switch (this.type) {
         case CIRCLE:
-          this.progress = new Circle(this.$el, this.options)
+          this.progress = new Circle(this.$el, options)
           break
         case PATH:
           let paths = this.$el.querySelectorAll('path')
           if (paths.length === 0) throw new Error('[VueProgress Error] Path not found in slot svg.')
-          this.progress = new Path(paths[paths.length - 1], this.options)
+          this.progress = new Path(paths[paths.length - 1], options)
           break
         default:
-          this.progress = new Line(this.$el, this.options)
+          this.progress = new Line(this.$el, options)
       }
     },
 

@@ -21,6 +21,9 @@ Vue.use(VueProgress)
 ```html
 <template>
   <progress-bar type="line" ref="line" :options="options"></progress-bar>
+
+  <!-- or -->
+  <!-- <progress-bar type="line" ref="line" color="#007AFF" strokeWidth="0.5"></progress-bar> -->
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 {
   "name": "vue-progress",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Progressbar.js as Vue Component",
   "author": "wangdahoo <157195705@qq.com>",
   "main": "dist/vue-progress.min.js",

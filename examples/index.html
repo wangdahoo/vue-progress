@@ -17,18 +17,18 @@
     <div id="app"></div>
 
     <script type="text/x-template" id="tpl">
-      <progress-bar type="line" ref="line" :options="options"></progress-bar>
+      <progress-bar
+        type="line"
+        ref="line"
+        color='#007AFF'
+        strokeWidth="0.5"
+        trailColor="#FFF"
+      ></progress-bar>
     </script>
 
     <script>
       new Vue({
         template: '#tpl',
-        data: {
-          options: {
-            color: '#007AFF',
-            strokeWidth: 0.5
-          }
-        },
         mounted: function () {
           this.$refs.line.animate(1.0)
         }
