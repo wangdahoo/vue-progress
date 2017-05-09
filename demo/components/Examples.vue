@@ -109,7 +109,7 @@ export default {
 
   data () {
     return {
-      title: 'PrograssBar.js',
+      title: 'ProgressBar.js',
       subtitle: 'As a Vue Component',
 
       lineBasicOptions: OPTIONS.LINE_BASIC,
