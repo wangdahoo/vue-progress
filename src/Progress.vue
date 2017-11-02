@@ -132,7 +132,7 @@ export default {
     },
 
     // Reference to p element which presents the text label for progress bar. Returns null if text is not defined.
-    text () {
+    getText () {
       return this.progress.text
     },
 
