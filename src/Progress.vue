@@ -55,7 +55,7 @@ export default {
       default: 'linear'
     },
     svgStyle: Object,
-    text: Object,
+    myText: Object,
     fill: String,
     from: Object,
     to: Object,
@@ -94,7 +94,7 @@ export default {
       }
 
       if (this.svgStyle) _options.svgStyle = this.svgStyle
-      if (this.text) _options.text = this.text
+      if (this.myText) _options.myText = this.myText
       if (this.fill) _options.fill = this.fill
       if (this.from) _options.from = this.from
       if (this.to) _options.to = this.to
@@ -132,8 +132,8 @@ export default {
     },
 
     // Reference to p element which presents the text label for progress bar. Returns null if text is not defined.
-    text () {
-      return this.progress.text
+    myText () {
+      return this.progress.myText
     },
 
     animate (progress, options, cb) {
@@ -156,8 +156,8 @@ export default {
     },
 
     // Sets text to given a string. If you need to dynamically modify the text element, see .text attribute.
-    setText (text) {
-      this.progress.setText(text)
+    setMyText (myText) {
+      this.progress.setMyText(myText)
     }
   }
 }
