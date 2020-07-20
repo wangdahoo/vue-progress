@@ -55,7 +55,7 @@ export default {
       default: 'linear'
     },
     svgStyle: Object,
-    text: Object,
+    textReceived: Object,
     fill: String,
     from: Object,
     to: Object,
@@ -94,7 +94,7 @@ export default {
       }
 
       if (this.svgStyle) _options.svgStyle = this.svgStyle
-      if (this.text) _options.text = this.text
+      if (this.textReceived) _options.text = this.textReceived
       if (this.fill) _options.fill = this.fill
       if (this.from) _options.from = this.from
       if (this.to) _options.to = this.to
@@ -156,8 +156,8 @@ export default {
     },
 
     // Sets text to given a string. If you need to dynamically modify the text element, see .text attribute.
-    setText (text) {
-      this.progress.setText(text)
+    setText (textParam) {
+      this.progress.setText(textParam)
     }
   }
 }
